@@ -11,12 +11,14 @@
     "watch": "tsc -w -p ./src",
     "debug": "nodemon --watch ./dist --inspect=0.0.0.0:5858 --nolazy ./dist/index.js",
     "docker-debug": "docker-compose up",
-    "start": "node ./dist/index.js"
+    "start": "node ./dist/index.js",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "devDependencies": {
     "@types/node": "^9.6.5",
-    "typescript": "^2.8.1",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1"
   },
   "main": "./dist/index.js"
 }
