@@ -6,7 +6,8 @@
     "jsRules": {},
     "rules": {
         "no-console": false, // not applicable to node
-        "only-arrow-functions": false // mocha doesn't support arrow functions in some scenarios
+        "only-arrow-functions": false, // mocha doesn't support arrow functions in some scenarios
+        "indent": [true, "tabs", 2]
     },
     "rulesDirectory": []
 }
