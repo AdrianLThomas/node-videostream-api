@@ -5,7 +5,8 @@
     ],
     "jsRules": {},
     "rules": {
-        "no-console": false
+        "no-console": false, // not applicable to node
+        "only-arrow-functions": false // mocha doesn't support arrow functions in some scenarios
     },
     "rulesDirectory": []
 }
