@@ -20,3 +20,4 @@ TBD
 TBD
 
 # Scalability Strategy
+TBD. Cover local scalability within node and upon deployment
