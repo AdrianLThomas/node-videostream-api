@@ -7,10 +7,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "postinstall": "tsc -p ./src",
+    "postinstall": "tsc -p ./src && npm run lint",
     "watch": "tsc -w -p ./src",
     "debug": "nodemon --watch ./dist --inspect=0.0.0.0:5858 --nolazy ./dist/index.js",
-    "docker-debug": "docker-compose up",
+    "docker-debug": "docker-compose -f docker-compose.debug.yml up",
     "start": "node ./dist/index.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
