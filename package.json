@@ -1,6 +1,11 @@
 {
   "name": "node-videostream-api",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdrianLThomas/node-videostream-api"
+  },
+  "license": "MIT",
   "scripts": {
     "postinstall": "tsc -p ./src",
     "watch": "tsc -w -p ./src",
