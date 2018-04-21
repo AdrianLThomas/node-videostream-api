@@ -20,8 +20,11 @@ TBD
 TBD
 
 # How to use
-`$ curl -H "Authorization: Adrian" -X GET http://localhost:3000/video/start`
-TBD
+`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/start`
+
+`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/end`
+
+`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/count`
 
 # Scalability Strategy
 TBD. Cover local scalability within node and upon deployment
