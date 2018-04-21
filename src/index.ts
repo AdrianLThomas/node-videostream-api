@@ -1,16 +1,41 @@
 import * as http from "http";
+import * as url from "url";
 
-let reqCnt = 1;
+import { VideoController } from "./controllers/video.controller";
+import { AuthorisationService } from "./services/authorisation.service";
 
-http
-	.createServer((req, res) => {
-		const message = `Request Count: ${reqCnt}`;
+const authService = new AuthorisationService();
+const videoController = new VideoController();
+http.createServer((req, res) => {
+		if (!isAuthorised(req, res)) {
+			return;
+		}
 
-		res.writeHead(200, { "Content-Type": "text/html" });
-		res.end(`<html><head><meta http-equiv="refresh" content="2"></head><body>${message}</body></html>`);
-
-		console.log("handled request: " + reqCnt++);
+		const urlParts = url.parse(req.url);
+		switch (urlParts.pathname) {
+			case "/videos/start":
+				videoController.startVideo(req, res);
+				break;
+			default:
+				invalidRoute(req, res);
+				break;
+		}
 	})
 	.listen(3000);
+
+function invalidRoute(req, res): void {
+	res.writeHead(404);
+	res.end();
+}
+
+function isAuthorised(req, res): boolean {
+	if (authService.isAuthorised(req.headers.authorization)) {
+		res.writeHead(200);
+		return true;
+	}
+
+	res.writeHead(401);
+	return false;
+}
 
 console.log("server running on port 3000");
