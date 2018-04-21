@@ -112,7 +112,7 @@ describe("VideoController", () => {
 		controller.endVideo(req, res);
 
 		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;;
+		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
 	});
 
 	it("count: returns watch count with status code 200", function() {
