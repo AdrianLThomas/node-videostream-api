@@ -1,7 +1,4 @@
-import * as assert from "assert";
-import { should } from "chai";
 import { expect } from "chai";
-should();
 
 describe("VideoController", () => {
 	it("startVideo: increments watch count");

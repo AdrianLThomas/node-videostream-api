@@ -1,6 +1,5 @@
 // tslint:disable:no-unused-expression
 
-import * as assert from "assert";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as TypeMoq from "typemoq";
@@ -30,7 +29,7 @@ describe("AuthorisationMiddleware", () => {
 
 		authMiddleware.isAuthorised(req, res);
 
-		assert(res.writeHead.calledOnceWith(401));
+		expect(res.writeHead.calledOnceWith(401)).to.be.true;
 	});
 
 	it("isAuthorised returns true if authorised", function() {
