@@ -7,7 +7,8 @@ import * as sinon from "sinon";
 import { VideoController } from "./video.controller";
 
 describe("VideoController", () => {
-	const watchCountLimit = 3;
+	const watchCountCeiling = 3;
+	const watchCountFloor = 0;
 	let controller: VideoController;
 	let req: any = {};
 	let res: any = {};
@@ -28,7 +29,7 @@ describe("VideoController", () => {
 	});
 
 	it("startVideo: is not incremented higher than three", function() {
-		const expectedCount = watchCountLimit;
+		const expectedCount = watchCountCeiling;
 		const startVideoTimes = 5;
 
 		for (let i = 0; i < startVideoTimes; i++) {
@@ -38,31 +39,89 @@ describe("VideoController", () => {
 		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
 	});
 
-	it("startVideo: returns status code 200 when watch count is less than or equal to three", function() {
+	it("startVideo: returns status code 200 when watch count is 1", function() {
 		const expectedCount = 1;
 		const expectedStatusCode = 200;
 
 		controller.startVideo(req, res);
 
 		expect(res.end.calledOnceWith(expectedCount)).to.be.true;
-		expect(res.writeHead.calledOnceWith(expectedStatusCode));
+		expect(res.writeHead.calledOnceWith(expectedStatusCode)).to.be.true;
 	});
 
-	it("startVideo: returns status code 403 when watch count is three", function() {
-		const expectedCount = watchCountLimit;
-		const expectedStatusCode = 403;
+	it("startVideo: returns status code 200 when watch count is 3", function() {
+		const expectedCount = 3;
+		const expectedStatusCode = 200;
 
-		for (let i = 0; i < watchCountLimit; i++) {
+		for (let i = 0; i < expectedCount; i++) {
 			controller.startVideo(req, res);
 		}
 
 		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode));
+		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
 	});
 
-	it("endVideo: decrements watch count");
-	it("endVideo: is not decremented less than zero");
-	it("endVideo: returns status code 200 when watch count is more than or equal to zero");
-	it("endVideo: returns status code 403 when watch count is zero");
-	it("count: returns watch count with status code 200");
+	it("endVideo: decrements watch count by one", function() {
+		const initialWatchCount = 1;
+		const expectedWatchCount = 2;
+
+		for (let i = 0; i < 3; i++) {
+			controller.startVideo(req, res);
+		}
+
+		controller.endVideo(req, res);
+		expect(res.end.calledWith(expectedWatchCount)).to.be.true;
+	});
+
+	it("endVideo: is not decremented less than zero", function() {
+		const expectedCount = watchCountFloor;
+
+		controller.endVideo(req, res);
+
+		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+	});
+
+	it("endVideo: returns status code 200 when watch count is 1", function() {
+		const expectedCount = 0;
+		const expectedStatusCode = 200;
+
+		controller.startVideo(req, res);
+		controller.endVideo(req, res);
+
+		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
+	});
+
+	it("endVideo: returns status code 200 when watch count is 2", function() {
+		const expectedCount = 2;
+		const expectedStatusCode = 200;
+
+		for (let i = 0; i < 3; i++) {
+			controller.startVideo(req, res);
+		}
+		controller.endVideo(req, res);
+
+		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
+	});
+
+	it("endVideo: returns status code 403 when watch count is zero", function() {
+		const expectedCount = watchCountFloor;
+		const expectedStatusCode = 403;
+
+		controller.endVideo(req, res);
+
+		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;;
+	});
+
+	it("count: returns watch count with status code 200", function() {
+		const expectedCount = watchCountFloor;
+		const expectedStatusCode = 200;
+
+		controller.count(req, res);
+
+		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;;
+	});
 });

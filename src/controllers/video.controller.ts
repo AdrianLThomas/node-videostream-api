@@ -18,4 +18,20 @@ export class VideoController {
 
 		res.end(this.watchCount);
 	}
+
+	public endVideo(req: http.ServerRequest, res: http.ServerResponse): void {
+		if (this.watchCount > 0) {
+			this.watchCount--;
+			res.writeHead(200, this.headers);
+		} else {
+			res.writeHead(403, this.headers);
+		}
+
+		res.end(this.watchCount);
+	}
+
+	public count(req: http.ServerRequest, res: http.ServerResponse): void {
+		res.writeHead(200, this.headers);
+		res.end(this.watchCount);
+	}
 }
