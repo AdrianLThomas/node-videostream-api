@@ -25,7 +25,7 @@ describe("VideoController", () => {
 
 		controller.startVideo(req, res);
 
-		expect(res.end.calledOnceWith(expectedWatchCount)).to.be.true;
+		expect(res.end.calledOnceWith(expectedWatchCount.toString())).to.be.true;
 	});
 
 	it("startVideo: is not incremented higher than three", function() {
@@ -36,7 +36,7 @@ describe("VideoController", () => {
 			controller.startVideo(req, res);
 		}
 
-		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
 	});
 
 	it("startVideo: returns status code 200 when watch count is 1", function() {
@@ -45,7 +45,7 @@ describe("VideoController", () => {
 
 		controller.startVideo(req, res);
 
-		expect(res.end.calledOnceWith(expectedCount)).to.be.true;
+		expect(res.end.calledOnceWith(expectedCount.toString())).to.be.true;
 		expect(res.writeHead.calledOnceWith(expectedStatusCode)).to.be.true;
 	});
 
@@ -57,7 +57,7 @@ describe("VideoController", () => {
 			controller.startVideo(req, res);
 		}
 
-		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
 		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
 	});
 
@@ -70,7 +70,7 @@ describe("VideoController", () => {
 		}
 
 		controller.endVideo(req, res);
-		expect(res.end.calledWith(expectedWatchCount)).to.be.true;
+		expect(res.end.calledWith(expectedWatchCount.toString())).to.be.true;
 	});
 
 	it("endVideo: is not decremented less than zero", function() {
@@ -78,7 +78,7 @@ describe("VideoController", () => {
 
 		controller.endVideo(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
 	});
 
 	it("endVideo: returns status code 200 when watch count is 1", function() {
@@ -88,7 +88,7 @@ describe("VideoController", () => {
 		controller.startVideo(req, res);
 		controller.endVideo(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
 		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
 	});
 
@@ -101,7 +101,7 @@ describe("VideoController", () => {
 		}
 		controller.endVideo(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
 		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
 	});
 
@@ -111,7 +111,7 @@ describe("VideoController", () => {
 
 		controller.endVideo(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
+		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
 		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;;
 	});
 
@@ -121,7 +121,7 @@ describe("VideoController", () => {
 
 		controller.count(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount)).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;;
+		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
+		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
 	});
 });

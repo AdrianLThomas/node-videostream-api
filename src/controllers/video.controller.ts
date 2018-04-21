@@ -16,7 +16,7 @@ export class VideoController {
 			res.writeHead(403, this.headers);
 		}
 
-		res.end(this.watchCount);
+		res.end(this.watchCount.toString());
 	}
 
 	public endVideo(req: http.ServerRequest, res: http.ServerResponse): void {
@@ -27,11 +27,11 @@ export class VideoController {
 			res.writeHead(403, this.headers);
 		}
 
-		res.end(this.watchCount);
+		res.end(this.watchCount.toString());
 	}
 
 	public count(req: http.ServerRequest, res: http.ServerResponse): void {
 		res.writeHead(200, this.headers);
-		res.end(this.watchCount);
+		res.end(this.watchCount.toString());
 	}
 }

@@ -20,6 +20,7 @@ TBD
 TBD
 
 # How to use
+`$ curl -H "Authorization: Adrian" -X GET http://localhost:3000/video/start`
 TBD
 
 # Scalability Strategy
