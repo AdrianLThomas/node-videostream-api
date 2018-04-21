@@ -21,7 +21,7 @@ describe("AuthorisationMiddleware", () => {
 									 .returns(() => true);
 
 		req = { headers: sinon.spy() };
-		res = { writeHead: sinon.spy() };
+		res = { writeHead: sinon.spy(), end: sinon.spy() };
 	});
 
 	it("isAuthorised writes status code 401 if unauthorised", function() {
@@ -30,6 +30,7 @@ describe("AuthorisationMiddleware", () => {
 		authMiddleware.isAuthorised(req, res);
 
 		expect(res.writeHead.calledOnceWith(401)).to.be.true;
+		expect(res.end.calledOnce).to.be.true;
 	});
 
 	it("isAuthorised returns true if authorised", function() {

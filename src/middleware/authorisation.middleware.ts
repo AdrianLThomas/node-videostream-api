@@ -11,6 +11,7 @@ export class AuthorisationMiddleware {
 		}
 
 		res.writeHead(401);
+		res.end();
 		return false;
 	}
 }

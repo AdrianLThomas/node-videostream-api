@@ -8,7 +8,7 @@ import { AuthorisationService } from "./services/authorisation.service";
 const authMiddleware = new AuthorisationMiddleware(new AuthorisationService());
 const videoController = new VideoController();
 http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
-		if (!this.authMiddleware.isAuthorised) {
+		if (!authMiddleware.isAuthorised(req, res)) {
 			return;
 		}
 
@@ -16,6 +16,12 @@ http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
 		switch (urlParts.pathname) {
 			case "/videos/start":
 				videoController.startVideo(req, res);
+				break;
+			case "/videos/end":
+				videoController.endVideo(req, res);
+				break;
+			case "/videos/count":
+				videoController.count(req, res);
 				break;
 			default:
 				invalidRoute(req, res);
