@@ -2,12 +2,13 @@ import * as http from "http";
 import * as url from "url";
 
 import { VideoController } from "./controllers/video.controller";
+import { AuthorisationMiddleware } from "./middleware/authorisation.middleware";
 import { AuthorisationService } from "./services/authorisation.service";
 
-const authService = new AuthorisationService();
+const authMiddleware = new AuthorisationMiddleware(new AuthorisationService());
 const videoController = new VideoController();
-http.createServer((req, res) => {
-		if (!isAuthorised(req, res)) {
+http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
+		if (!this.authMiddleware.isAuthorised) {
 			return;
 		}
 
@@ -26,16 +27,6 @@ http.createServer((req, res) => {
 function invalidRoute(req, res): void {
 	res.writeHead(404);
 	res.end();
-}
-
-function isAuthorised(req, res): boolean {
-	if (authService.isAuthorised(req.headers.authorization)) {
-		res.writeHead(200);
-		return true;
-	}
-
-	res.writeHead(401);
-	return false;
 }
 
 console.log("server running on port 3000");
