@@ -1,8 +1,8 @@
 import * as http from "http";
 export class VideoController {
-	public watchCount = 0;
-	public readonly watchLimit = 3;
+	private readonly watchLimit = 3;
 	private readonly headers: http.OutgoingHttpHeaders;
+	private watchCount = 0;
 
 	constructor() {
 		this.headers = {"Content-Type": "text/plain"};
@@ -11,10 +11,11 @@ export class VideoController {
 	public startVideo(req: http.ServerRequest, res: http.ServerResponse): void {
 		if (this.watchCount < this.watchLimit) {
 			this.watchCount++;
-			// res.writeHead(200, this.headers);
-			// res.end("OK " + this.watchCount);
+			res.writeHead(200, this.headers);
+		} else {
+			res.writeHead(403, this.headers);
 		}
 
-		// fail
+		res.end(this.watchCount);
 	}
 }
