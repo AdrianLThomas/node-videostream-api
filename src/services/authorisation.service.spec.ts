@@ -2,13 +2,13 @@
 
 import * as assert from "assert";
 import { expect } from "chai";
-import { AuthenticationService } from "./authorisation.service";
+import { AuthorisationService } from "./authorisation.service";
 
 describe("AuthorisationService", () => {
-	let service: AuthenticationService;
+	let service: AuthorisationService;
 
 	beforeEach(function() {
-		service = new AuthenticationService();
+		service = new AuthorisationService();
 	});
 
 	it("isAuthorised: returns true if any string is provided", function() {
