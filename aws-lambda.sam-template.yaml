@@ -16,6 +16,9 @@ Resources:
           Properties:
             Path: /startVideo
             Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref activeUsers
   endVideo:
     Type: AWS::Serverless::Function
     Properties:
@@ -31,6 +34,9 @@ Resources:
           Properties:
             Path: /endVideo
             Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref activeUsers
   count:
     Type: AWS::Serverless::Function
     Properties:
@@ -46,6 +52,9 @@ Resources:
           Properties:
             Path: /count
             Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref activeUsers
   activeUsers:
     Type: AWS::DynamoDB::Table
     Properties: 
