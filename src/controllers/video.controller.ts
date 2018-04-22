@@ -1,4 +1,6 @@
 import * as http from "http";
+import { IRequest } from "../http/request.interface";
+import { IResponse } from "../http/response.interface";
 import { IActiveUserRepository } from "../repositories/active-user-repository.interface";
 
 export class VideoController {
@@ -9,7 +11,7 @@ export class VideoController {
 		this.headers = {"Content-Type": "text/plain"};
 	}
 
-	public startVideo(req: http.ServerRequest, res: http.ServerResponse): void {
+	public startVideo(req: IRequest, res: IResponse): void {
 		const username = this.getUsername(req, res);
 		const watchCount = this.userRepository.getWatchCount(username);
 
@@ -23,7 +25,7 @@ export class VideoController {
 		res.end(this.userRepository.getWatchCount(username).toString());
 	}
 
-	public endVideo(req: http.ServerRequest, res: http.ServerResponse): void {
+	public endVideo(req: IRequest, res: IResponse): void {
 		const username = this.getUsername(req, res);
 		const watchCount = this.userRepository.getWatchCount(username);
 
@@ -37,7 +39,7 @@ export class VideoController {
 		res.end(this.userRepository.getWatchCount(username).toString());
 	}
 
-	public count(req: http.ServerRequest, res: http.ServerResponse): void {
+	public count(req: IRequest, res: IResponse): void {
 		const username = this.getUsername(req, res);
 
 		res.writeHead(200, this.headers);
