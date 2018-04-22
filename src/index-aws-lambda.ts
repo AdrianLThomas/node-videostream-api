@@ -4,7 +4,7 @@ import { VideoController } from "./controllers/video.controller";
 import { LambdaRequest } from "./http/aws/lambda-request";
 import { LambdaResponse } from "./http/aws/lambda-response";
 import { AuthorisationMiddleware } from "./middleware/authorisation.middleware";
-import { InMemoryActiveUserRepository } from "./repositories/inmemory-active-user.repository";
+import { DynamoDbActiveUserRepository } from "./repositories/dynamodb-active-user.repository";
 import { AuthorisationService } from "./services/authorisation.service";
 
 const handler: Handler = async (event: any, context: Context, callback: Callback) => {
@@ -12,7 +12,7 @@ const handler: Handler = async (event: any, context: Context, callback: Callback
 		throw new Error("No headers received: expected to be invoked by API gateway.");
 	}
 
-	const activeUserRepository = new InMemoryActiveUserRepository();
+	const activeUserRepository = new DynamoDbActiveUserRepository(process.env.TABLE_NAME);
 	const videoController = new VideoController(activeUserRepository);
 	const authMiddleware = new AuthorisationMiddleware(new AuthorisationService());
 	const req = new LambdaRequest(event.headers);

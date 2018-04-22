@@ -4,7 +4,7 @@ This is a demo of using Node.js to expose a HTTP API. A 'user' can request to st
 The live API is available here: `TBA`
 
 ## How it works
-TBD
+TBD - describe bootstrapping mechanism for node / aws environments.
 
 # How to use
 `$ curl -i -H "X-Username: Adrian" -X GET http://localhost:3000/video/start`

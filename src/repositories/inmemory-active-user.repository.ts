@@ -18,6 +18,10 @@ export class InMemoryActiveUserRepository implements IActiveUserRepository {
 	}
 
 	public setWatchCountAsync(username: string, watchCount: number): Promise<void> {
+		if (!username) {
+			throw new Error("parameter: 'username' was not provided");
+		}
+
 		const user = this.getUser(username);
 		if (user) {
 			user.watchCount = watchCount;
