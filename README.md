@@ -3,6 +3,9 @@ This is a demo of using Node.js to expose a HTTP API. A 'user' can request to st
 
 The live API is available here: `TBA`
 
+## How it works
+TBD
+
 # How to use
 `$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/start`
 
@@ -12,9 +15,14 @@ The live API is available here: `TBA`
 
 Where `Adrian` is the username for the user.
 
-# Starting
+# Running the app
 The easiest way to get running is just using docker compose. However you can build and run the docker file yourself, or run locally within VS Code.
 
+`$ npm run install`
+TBD
+
+# Running the tests
+`$ npm run test`
 
 # Building / Starting
 ## Prerequisites: Required
@@ -47,9 +55,16 @@ You can run the code in this repository using node directly, or with Docker. The
 # Scalability Strategy
 TBD. Cover local scalability within node and upon deployment
 
-# General Notes
+# Notes
+## General
 In a production system, a token would be used to authorise whether the
 watch count can be de/incremented. For simplicity auth has been omitted,
 and the user ID is placed in the HTTP header instead.
 Using the user ID is a better solution to say an IP address, as there 
 could be multiple users behind the same shared internet connection.
+
+## Assumptions
+
+## Testing
+
+## Improvements
