@@ -4,6 +4,14 @@ TBD - what is this?
 # Starting
 The easiest way to get running is just using docker compose. However you can build and run the docker file yourself, or run locally within VS Code.
 
+# Prerequisites
+## Required
+- [Node.js](https://nodejs.org/en/download/)
+
+## Optional
+- [Docker (another runtime option)](https://docs.docker.com/install/)
+- [AWS CLI (only required for deployment)](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+
 ## Docker Compose
 TBD
 ## Docker
@@ -14,7 +22,31 @@ TBD
 TBD
 
 # Deployment
-TBD
+You can run the code in this repository using node directly, or with Docker. The application itself is deployed to AWS Lambda, and described using the `aws-lambda.sam-template.yaml` SAM template. This section covers deployment to AWS.
+
+## Create a bucket
+A bucket needs to exist to upload the package to, you can create the bucket with this command: 
+`aws s3 mb s3://node-videostream-api`
+
+## Upload package
+```
+aws cloudformation package \
+   --template-file file aws-lambda.sam-template.yaml \
+   --output-template-file serverless-output.yaml \
+   --s3-bucket node-videostream-api
+```
+`serverless-output.yaml` contains the uri to the s3 bucket containing the deployment package.
+
+## Deploy package
+```
+aws cloudformation deploy \
+   --template-file serverless-output.yaml \
+   --stack-name new-stack-name \
+   --capabilities CAPABILITY_IAM
+```
+
+## Resources
+- https://docs.aws.amazon.com/lambda/latest/dg/serverless-deploy-wt.html#serverless-deploy
 
 # Live endpoint
 TBD
