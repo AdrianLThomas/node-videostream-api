@@ -16,14 +16,14 @@ Resources:
           Properties:
             Path: /videostreamapi
             Method: ANY
-  TableName:
+  active-users:
     Type: AWS::DynamoDB::Table
     Properties: 
       AttributeDefinitions: 
-        - AttributeName: id
+        - AttributeName: username
           AttributeType: S
       KeySchema: 
-        - AttributeName: id
+        - AttributeName: username
           KeyType: HASH
       ProvisionedThroughput: 
         ReadCapacityUnits: 5
