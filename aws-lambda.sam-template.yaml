@@ -4,7 +4,7 @@ Resources:
   startVideo:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: aws/lambda-startvideo.handler
+      Handler: index-aws-lambda.handler
       Runtime: nodejs6.10
       CodeUri: ./dist
       MemorySize: 512
@@ -14,7 +14,37 @@ Resources:
         nodeVideoStreamApiGateway:
           Type: Api
           Properties:
-            Path: /startvideo
+            Path: /startVideo
+            Method: GET
+  endVideo:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index-aws-lambda.handler
+      Runtime: nodejs6.10
+      CodeUri: ./dist
+      MemorySize: 512
+      Timeout: 10
+      Policies: AmazonDynamoDBFullAccess
+      Events:
+        nodeVideoStreamApiGateway:
+          Type: Api
+          Properties:
+            Path: /endVideo
+            Method: GET
+  count:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index-aws-lambda.handler
+      Runtime: nodejs6.10
+      CodeUri: ./dist
+      MemorySize: 512
+      Timeout: 10
+      Policies: AmazonDynamoDBFullAccess
+      Events:
+        nodeVideoStreamApiGateway:
+          Type: Api
+          Properties:
+            Path: /count
             Method: GET
   activeUsers:
     Type: AWS::DynamoDB::Table
