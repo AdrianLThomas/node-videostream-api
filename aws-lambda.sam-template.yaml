@@ -1,10 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
-  node-video-stream-api:
+  startVideo:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: aws-lambda.handler
+      Handler: aws/lambda-startvideo.handler
       Runtime: nodejs6.10
       CodeUri: ./dist
       MemorySize: 512
@@ -14,9 +14,9 @@ Resources:
         nodeVideoStreamApiGateway:
           Type: Api
           Properties:
-            Path: /videostreamapi
-            Method: ANY
-  active-users:
+            Path: /startvideo
+            Method: GET
+  activeUsers:
     Type: AWS::DynamoDB::Table
     Properties: 
       AttributeDefinitions: 
