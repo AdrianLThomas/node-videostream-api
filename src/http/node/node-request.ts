@@ -2,8 +2,9 @@ import * as http from "http";
 import { IRequest } from "../request.interface";
 
 export class NodeRequest implements IRequest {
-	constructor(private readonly req: http.IncomingMessage) {
-	}
+	public readonly headers: http.IncomingHttpHeaders;
 
-	public get headers(): http.IncomingHttpHeaders { return this.req.headers; }
+	constructor(private readonly req: http.IncomingMessage) {
+		this.headers = this.req.headers;
+	}
 }

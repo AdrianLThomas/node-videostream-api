@@ -10,7 +10,7 @@ import { AuthorisationService } from "./services/authorisation.service";
 
 const authMiddleware = new AuthorisationMiddleware(new AuthorisationService());
 const activeUserRepository = new InMemoryActiveUserRepository();
-http.createServer((nativeReq: http.IncomingMessage, nativeRes: http.ServerResponse) => {
+http.createServer(async (nativeReq: http.IncomingMessage, nativeRes: http.ServerResponse) => {
 	const videoController = new VideoController(activeUserRepository);
 	const req = new NodeRequest(nativeReq);
 	const res = new NodeResponse(nativeRes);
@@ -22,13 +22,13 @@ http.createServer((nativeReq: http.IncomingMessage, nativeRes: http.ServerRespon
 	const urlParts = url.parse(nativeReq.url);
 	switch (urlParts.pathname) {
 		case "/videos/start":
-			videoController.startVideo(req, res);
+			await videoController.startVideoAsync(req, res);
 			break;
 		case "/videos/end":
-			videoController.endVideo(req, res);
+			await videoController.endVideoAsync(req, res);
 			break;
 		case "/videos/count":
-			videoController.count(req, res);
+			await videoController.countAsync(req, res);
 			break;
 		default:
 			invalidRoute(req, res);

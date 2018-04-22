@@ -1,4 +1,4 @@
 export interface IActiveUserRepository {
-	getWatchCount(username: string): number;
-	setWatchCount(username: string, watchCount: number): void;
+	getWatchCountAsync(username: string): Promise<number>;
+	setWatchCountAsync(username: string, watchCount: number): Promise<void>;
 }

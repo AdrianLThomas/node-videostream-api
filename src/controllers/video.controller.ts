@@ -11,39 +11,39 @@ export class VideoController {
 		this.headers = {"Content-Type": "text/plain"};
 	}
 
-	public startVideo(req: IRequest, res: IResponse): void {
+	public async startVideoAsync(req: IRequest, res: IResponse): Promise<void> {
 		const username = this.getUsername(req, res);
-		const watchCount = this.userRepository.getWatchCount(username);
+		const watchCount = await this.userRepository.getWatchCountAsync(username);
 
 		if (watchCount < this.watchLimit) {
-			this.userRepository.setWatchCount(username, watchCount + 1);
+			await this.userRepository.setWatchCountAsync(username, watchCount + 1);
 			res.writeHead(200, this.headers);
 		} else {
 			res.writeHead(403, this.headers);
 		}
 
-		res.end(this.userRepository.getWatchCount(username).toString());
+		res.end((await this.userRepository.getWatchCountAsync(username)).toString());
 	}
 
-	public endVideo(req: IRequest, res: IResponse): void {
+	public async endVideoAsync(req: IRequest, res: IResponse): Promise<void> {
 		const username = this.getUsername(req, res);
-		const watchCount = this.userRepository.getWatchCount(username);
+		const watchCount = await this.userRepository.getWatchCountAsync(username);
 
 		if (watchCount > 0) {
-			this.userRepository.setWatchCount(username, watchCount - 1);
+			await this.userRepository.setWatchCountAsync(username, watchCount - 1);
 			res.writeHead(200, this.headers);
 		} else {
 			res.writeHead(403, this.headers);
 		}
 
-		res.end(this.userRepository.getWatchCount(username).toString());
+		await res.end((await this.userRepository.getWatchCountAsync(username)).toString());
 	}
 
-	public count(req: IRequest, res: IResponse): void {
+	public async countAsync(req: IRequest, res: IResponse): Promise<void> {
 		const username = this.getUsername(req, res);
 
 		res.writeHead(200, this.headers);
-		res.end(this.userRepository.getWatchCount(username).toString());
+		res.end((await this.userRepository.getWatchCountAsync(username)).toString());
 	}
 
 	private getUsername(req, res): string {

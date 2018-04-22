@@ -1,8 +1,13 @@
 // tslint:disable:no-unused-expression
 
 import { expect } from "chai";
+import * as chai from "chai";
+import * as should from "chai";
+import * as chaiAsPromised from "chai-as-promised";
 import * as http from "http";
 import * as sinon from "sinon";
+chai.use(chaiAsPromised);
+chai.should();
 
 import { InMemoryActiveUserRepository } from "../repositories/inmemory-active-user.repository";
 import { VideoController } from "./video.controller";
@@ -22,109 +27,112 @@ describe("VideoController", () => {
 		req.headers["x-username"] = "test-user";
 	});
 
-	it("startVideo: increments watch count by one", function() {
+	it("startVideoAsync: increments watch count by one", async function() {
 		const initialWatchCount = 0;
 		const expectedWatchCount = initialWatchCount + 1;
 
-		controller.startVideo(req, res);
+		await controller.startVideoAsync(req, res);
 
-		expect(res.end.calledOnceWith(expectedWatchCount.toString())).to.be.true;
+		res.end.calledOnceWith(expectedWatchCount.toString()).should.be.true;
 	});
 
-	it("startVideo: is not incremented higher than three", function() {
+	it("startVideoAsync: is not incremented higher than three", async function() {
 		const expectedCount = watchCountCeiling;
 		const startVideoTimes = 5;
 
 		for (let i = 0; i < startVideoTimes; i++) {
-			controller.startVideo(req, res);
+			await controller.startVideoAsync(req, res);
 		}
 
-		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
+		res.end.lastCall.calledWith(expectedCount.toString()).should.be.true;
 	});
 
-	it("startVideo: returns status code 200 when watch count is 1", function() {
+	it("startVideoAsync: returns status code 200 when watch count is 1", async function() {
 		const expectedCount = 1;
 		const expectedStatusCode = 200;
 
-		controller.startVideo(req, res);
+		await controller.startVideoAsync(req, res);
 
-		expect(res.end.calledOnceWith(expectedCount.toString())).to.be.true;
-		expect(res.writeHead.calledOnceWith(expectedStatusCode)).to.be.true;
+		res.end.calledOnceWith(expectedCount.toString()).should.be.true;
+		res.writeHead.calledOnceWith(expectedStatusCode).should.be.true;
 	});
 
-	it("startVideo: returns status code 200 when watch count is 3", function() {
+	it("startVideoAsync: returns status code 200 when watch count is 3", async function() {
 		const expectedCount = 3;
 		const expectedStatusCode = 200;
 
 		for (let i = 0; i < expectedCount; i++) {
-			controller.startVideo(req, res);
+			await controller.startVideoAsync(req, res);
 		}
 
-		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
+		res.end.lastCall.calledWith(expectedCount.toString()).should.be.true;
+		res.writeHead.lastCall.calledWith(expectedStatusCode).should.be.true;
 	});
 
-	it("endVideo: decrements watch count by one", function() {
+	it("endVideoAsync: decrements watch count by one", async function() {
 		const initialWatchCount = 1;
 		const expectedWatchCount = 2;
 
 		for (let i = 0; i < 3; i++) {
-			controller.startVideo(req, res);
+			await controller.startVideoAsync(req, res);
+			console.log("startVideo called");
 		}
 
-		controller.endVideo(req, res);
-		expect(res.end.calledWith(expectedWatchCount.toString())).to.be.true;
+		await controller.endVideoAsync(req, res);
+		console.log("endVideoAsync called");
+		res.end.calledWith(expectedWatchCount.toString()).should.be.true;
+		console.log("assert called");
 	});
 
-	it("endVideo: is not decremented less than zero", function() {
+	it("endVideoAsync: is not decremented less than zero", async function() {
 		const expectedCount = watchCountFloor;
 
-		controller.endVideo(req, res);
+		await controller.endVideoAsync(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
+		res.end.lastCall.calledWith(expectedCount.toString()).should.be.true;
 	});
 
-	it("endVideo: returns status code 200 when watch count is 1", function() {
+	it("endVideoAsync: returns status code 200 when watch count is 1", async function() {
 		const expectedCount = 0;
 		const expectedStatusCode = 200;
 
-		controller.startVideo(req, res);
-		controller.endVideo(req, res);
+		await controller.startVideoAsync(req, res);
+		await controller.endVideoAsync(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
+		res.end.lastCall.calledWith(expectedCount.toString()).should.be.true;
+		res.writeHead.lastCall.calledWith(expectedStatusCode).should.be.true;
 	});
 
-	it("endVideo: returns status code 200 when watch count is 2", function() {
+	it("endVideoAsync: returns status code 200 when watch count is 2", async function() {
 		const expectedCount = 2;
 		const expectedStatusCode = 200;
 
 		for (let i = 0; i < 3; i++) {
-			controller.startVideo(req, res);
+			await controller.startVideoAsync(req, res);
 		}
-		controller.endVideo(req, res);
+		await controller.endVideoAsync(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
+		res.end.lastCall.calledWith(expectedCount.toString()).should.be.true;
+		res.writeHead.lastCall.calledWith(expectedStatusCode).should.be.true;
 	});
 
-	it("endVideo: returns status code 403 when watch count is zero", function() {
+	it("endVideoAsync: returns status code 403 when watch count is zero", async function() {
 		const expectedCount = watchCountFloor;
 		const expectedStatusCode = 403;
 
-		controller.endVideo(req, res);
+		await controller.endVideoAsync(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
+		res.end.lastCall.calledWith(expectedCount.toString()).should.be.true;
+		res.writeHead.lastCall.calledWith(expectedStatusCode).should.be.true;
 	});
 
-	it("count: returns watch count with status code 200", function() {
+	it("countAsync: returns watch count with status code 200", async function() {
 		const expectedCount = watchCountFloor;
 		const expectedStatusCode = 200;
 
-		controller.count(req, res);
+		await controller.countAsync(req, res);
 
-		expect(res.end.lastCall.calledWith(expectedCount.toString())).to.be.true;
-		expect(res.writeHead.lastCall.calledWith(expectedStatusCode)).to.be.true;
+		res.end.lastCall.calledWith(expectedCount.toString()).should.be.true;
+		res.writeHead.lastCall.calledWith(expectedStatusCode).should.be.true;
 	});
 });

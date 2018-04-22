@@ -4,20 +4,20 @@ import { ActiveUser } from "./active-user.model";
 export class InMemoryActiveUserRepository implements IActiveUserRepository {
 	private readonly activeUsers: ActiveUser[] = [];
 
-	public getWatchCount(username: string): number {
-		if (!username) {
-			throw new Error("parameter: 'username' was not provided");
-		}
+	public getWatchCountAsync(username: string): Promise<number> {
+			if (!username) {
+				throw new Error("parameter: 'username' was not provided");
+			}
 
-		const user = this.getUser(username);
-		if (user) {
-			return user.watchCount;
-		} else {
-			return 0;
-		}
+			const user = this.getUser(username);
+			if (user) {
+				return Promise.resolve(user.watchCount);
+			} else {
+				return Promise.resolve(0);
+			}
 	}
 
-	public setWatchCount(username: string, watchCount: number): void {
+	public setWatchCountAsync(username: string, watchCount: number): Promise<void> {
 		const user = this.getUser(username);
 		if (user) {
 			user.watchCount = watchCount;
@@ -28,6 +28,8 @@ export class InMemoryActiveUserRepository implements IActiveUserRepository {
 
 			this.activeUsers.push(newUser);
 		}
+
+		return Promise.resolve();
 	}
 
 	private getUser(username: string): ActiveUser {
