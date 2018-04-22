@@ -14,7 +14,9 @@
     "docker-debug": "docker-compose -f docker-compose.debug.yml up",
     "start": "node ./dist/index.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "test": "mocha -r ts-node/register './src/**/*.spec.ts'"
+		"test": "mocha -r ts-node/register './src/**/*.spec.ts'",
+		"aws:package": "aws cloudformation package --template-file aws-lambda.sam-template.yaml --output-template-file serverless-output.yaml --s3-bucket node-videostream-api",
+		"aws:deploy": "aws cloudformation deploy --template-file serverless-output.yaml --stack-name node-videostream-stack --capabilities CAPABILITY_IAM"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
