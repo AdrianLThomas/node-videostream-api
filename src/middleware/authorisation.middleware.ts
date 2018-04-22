@@ -6,7 +6,7 @@ export class AuthorisationMiddleware {
 	}
 
 	public isAuthorised(req, res): boolean {
-		if (this.authService.isAuthorised(req.headers.authorization)) {
+		if (this.authService.isAuthorised(req.headers["x-username"])) {
 			return true;
 		}
 

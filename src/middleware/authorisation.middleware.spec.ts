@@ -34,7 +34,7 @@ describe("AuthorisationMiddleware", () => {
 	});
 
 	it("isAuthorised returns true if authorised", function() {
-		req.headers.authorization = "Adrian";
+		req.headers["x-username"] = "Adrian";
 
 		const isAuth = authMiddleware.isAuthorised(req, res);
 

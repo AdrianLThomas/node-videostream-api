@@ -7,13 +7,13 @@ The live API is available here: `TBA`
 TBD
 
 # How to use
-`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/start`
+`$ curl -i -H "X-Username: Adrian" -X GET http://localhost:3000/video/start`
 
-`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/end`
+`$ curl -i -H "X-Username: Adrian" -X GET http://localhost:3000/video/end`
 
-`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/count`
+`$ curl -i -H "X-Username: Adrian" -X GET http://localhost:3000/video/count`
 
-Where `Adrian` is the username for the user.
+Where `Adrian` is the username for the user, used for tracking the number of videos being watched.
 
 # Running the app
 The easiest way to get running is just using docker compose. However you can build and run the docker file yourself, or run locally within VS Code.
