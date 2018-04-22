@@ -1,14 +1,26 @@
 # Intro
-TBD - what is this?
+This is a demo of using Node.js to expose a HTTP API. A 'user' can request to start a video, end a video or ask for a count of how many videos they have started.
+
+The live API is available here: `TBA`
+
+# How to use
+`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/start`
+
+`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/end`
+
+`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/count`
+
+Where `Adrian` is the username for the user.
 
 # Starting
 The easiest way to get running is just using docker compose. However you can build and run the docker file yourself, or run locally within VS Code.
 
-# Prerequisites
-## Required
+
+# Building / Starting
+## Prerequisites: Required
 - [Node.js](https://nodejs.org/en/download/)
 
-## Optional
+## Prerequisites: Optional
 - [Docker (another runtime option)](https://docs.docker.com/install/)
 - [AWS CLI (only required for deployment)](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
@@ -31,16 +43,6 @@ You can run the code in this repository using node directly, or with Docker. The
 
 ## Resources
 - https://docs.aws.amazon.com/lambda/latest/dg/serverless-deploy-wt.html#serverless-deploy
-
-# Live endpoint
-TBD
-
-# How to use
-`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/start`
-
-`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/end`
-
-`$ curl -i -H "Authorization: Adrian" -X GET http://localhost:3000/video/count`
 
 # Scalability Strategy
 TBD. Cover local scalability within node and upon deployment
