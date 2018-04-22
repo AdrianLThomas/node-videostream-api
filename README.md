@@ -68,3 +68,4 @@ could be multiple users behind the same shared internet connection.
 ## Testing
 
 ## Improvements
+- If the scope of the logic within the controller got any more complicated, it would be worthwhile encapsulating the logic in it's own service / provider, rather than in the controller. For simplicity of the demo it has been left as is.

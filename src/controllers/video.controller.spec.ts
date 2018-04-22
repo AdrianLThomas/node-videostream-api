@@ -4,6 +4,7 @@ import { expect } from "chai";
 import * as http from "http";
 import * as sinon from "sinon";
 
+import { InMemoryActiveUserRepository } from "../repositories/inmemory-active-user.repository";
 import { VideoController } from "./video.controller";
 
 describe("VideoController", () => {
@@ -14,9 +15,11 @@ describe("VideoController", () => {
 	let res: any = {};
 
 	beforeEach(function() {
-		controller = new VideoController();
+		controller = new VideoController(new InMemoryActiveUserRepository());
 		req = { headers: sinon.spy() };
 		res = { writeHead: sinon.spy(), end: sinon.spy() };
+
+		req.headers["x-username"] = "test-user";
 	});
 
 	it("startVideo: increments watch count by one", function() {
