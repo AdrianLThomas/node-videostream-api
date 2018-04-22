@@ -4,17 +4,17 @@ Resources:
   nodeVideoStreamService:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.aws-lambda.handler
+      Handler: aws-lambda.handler
       Runtime: nodejs6.10
-			CodeUri: ./src
-			MemorySize: 512
+      CodeUri: ./dist
+      MemorySize: 512
       Timeout: 10
       Policies: AmazonDynamoDBFullAccess
       Events:
         nodeVideoStreamApiGateway:
           Type: Api
           Properties:
-            Path: /myFirstFunction
+            Path: /videostreamapi
             Method: ANY
   TableName:
     Type: AWS::DynamoDB::Table
