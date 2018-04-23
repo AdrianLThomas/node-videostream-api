@@ -76,5 +76,8 @@ The application has been tested on:
 - Windows 10
 - AWS Lambda
 
+## Linting
+TSLint has been used for code linting. You can run this using: `$ npm run lint`. 
+
 ## Improvements
 - If the scope of the logic within the controller got any more complicated, it would be worthwhile encapsulating the logic in it's own service / provider, rather than in the controller. For simplicity of the demo it has been left as is.
