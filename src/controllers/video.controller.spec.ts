@@ -75,13 +75,10 @@ describe("VideoController", () => {
 
 		for (let i = 0; i < 3; i++) {
 			await controller.startVideoAsync(req, res);
-			console.log("startVideo called");
 		}
 
 		await controller.endVideoAsync(req, res);
-		console.log("endVideoAsync called");
 		res.end.calledWith(expectedWatchCount.toString()).should.be.true;
-		console.log("assert called");
 	});
 
 	it("endVideoAsync: is not decremented less than zero", async function() {
